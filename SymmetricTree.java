@@ -84,3 +84,92 @@ class Solution {
         return dfs(left.left, right.right) && dfs(left.right, right.left);
     }
 }
+
+// BFS Algo:
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            TreeNode curr = q.poll();
+            System.out.print(curr.val);
+            if (curr.left != null) {
+                q.add(curr.left);
+            }
+            if (curr.right != null) {
+                q.add(curr.right);
+            }
+        }
+        return true;
+    }
+}
+
+// BFS algo, for printing each level on different line
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = q.poll();
+                System.out.print(curr.val + " ");
+                if (curr.left != null) {
+                    q.add(curr.left);
+                }
+                if (curr.right != null) {
+                    q.add(curr.right);
+                }
+            }
+            System.out.println("");
+
+        }
+        return true;
+    }
+}
+
+// Solution to lc question using bfs:
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        // Base case
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        // Add left and right to the queue
+        q.add(root.left);
+        q.add(root.right);
+        // Iterate till queue is empty
+        while (!q.isEmpty()) {
+            // Pop the left and right for comparison
+            TreeNode left = q.poll();
+            TreeNode right = q.poll();
+            // If both null, symmetric
+            if (left == null && right == null) {
+                continue;
+            }
+            // If one null, not symmetric
+            if (left == null || right == null) {
+                return false;
+            }
+            // If the value of both are not equal, not symmetric
+            if (left.val != right.val) {
+                return false;
+            }
+            // Perform the same with left's left, right's right and left's right, right's
+            // left
+            q.add(left.left);
+            q.add(right.right);
+            q.add(left.right);
+            q.add(right.left);
+
+        }
+        return true;
+    }
+}
